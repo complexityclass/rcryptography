@@ -1,8 +1,9 @@
+pub mod cryptopal;
 pub mod utils;
 
 #[cfg(test)]
 mod tests {
-    use crate::utils;
+    use crate::{cryptopal, utils};
 
     #[test]
     fn test_hex_base64() {
@@ -29,5 +30,12 @@ mod tests {
     #[test]
     fn test_humming_distance() {
         assert_eq!(utils::humming_score(b"ab", b"zb"), 0.25);
+    }
+
+    #[test]
+    fn test_single_byte_xor() {
+        let cipherd = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
+        let original = cryptopal::single_byte_xor::decrypt_single_byte_xor(cipherd);
+        assert_eq!(original, "Cooking MC's like a pound of bacon");
     }
 }

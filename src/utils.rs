@@ -1,7 +1,7 @@
 extern crate base64;
 extern crate hex;
 
-use to_binary::{BinaryError, BinaryString};
+use to_binary::BinaryString;
 
 pub fn hex_to_base64(str: &str) -> Option<String> {
     let bytes = hex_to_vec(str)?;
@@ -33,7 +33,7 @@ fn humming_distance(lhs: &[u8], rhs: &[u8]) -> i32 {
     }
 
     let mut dist = 0;
-    for (b1, b2) in lhs.into_iter().zip(rhs.into_iter()) {
+    for (b1, b2) in lhs.iter().zip(rhs.iter()) {
         let bin_str = BinaryString::from(b1 ^ b2);
         dist += bin_str.to_string().chars().fold(0, |acc, item| match item {
             '0' => acc,
